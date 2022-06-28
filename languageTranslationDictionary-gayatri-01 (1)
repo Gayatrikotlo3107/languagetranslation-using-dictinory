@@ -1,0 +1,42 @@
+'''
+Filename: languageTranslationLists-gayatri-03.py
+Author: Gayatri kotlo
+Purpose: Translate words from English to French and vice-versa
+Revisions:
+    00: announce program, word translation using dictionary
+    01: if color not avialable, appended color to dictionary
+    02: if language not available, appended language to dictionary
+    03: Added the code to loop
+'''
+#Announce program
+print('Language Translator')
+#Dictionary for colors 
+colors= {'red': {'french': 'rouge', 'spanish': 'rojo', 'german': 'rot'}, 'green': {'french': 'vert', 'spanish':'verde', 'german': 'grun'}}
+colors['blue']={'french': 'bleu', 'spanish': 'azul', 'german': 'blau'}
+#Loop to take input and translate
+while True:
+    print(f'\nAvailable English words are: {"; ".join(colors.keys())}')
+    color = input("\nPlease enter a color in English: ").lower()
+    if color.isspace() or color == '': #exits program when nothing is input
+        print('\nExiting ...')
+        break
+    elif color in colors.keys(): #if color is available in list
+        print(f'\nAvailable language translations are: {"; ".join(colors[color].keys())}')
+        language = input("\nPlease enter a language from the list: ").lower()
+        if language in colors[color].keys():#if language is available
+            print(f"\nThe word '{color}' in {language.capitalize()} is '{colors[color][language]}'")
+        else:#if language is not available 
+            print(f"\nThe color '{color}' was not found in '{language}' list")
+            if (resp := input(f'Would you like to add {language} to the {color} list? <y>es or <n>o ').lower() == 'y'):
+                colors[color].update({language: input(f'Please enter the color {color} in {language}: ')})
+            else:
+                continue
+    else: #When color not found, appended to dictionary
+        print(f"The color '{color}' was not found in {' or '.join(colors.keys())} lists")
+        if (resp := input(f'Would you like to add {color} to the lists? <y>es or <n>o ').lower() == 'y'):
+            colors[color]={}
+            colors[color].update({'french': input(f'Please enter the color {color} in french: ')})
+            colors[color].update({'spanish': input(f'Please enter the color {color} in spanish: ')})
+            colors[color].update({'german': input(f'Please enter the color {color} in german: ')})
+        else: 
+            continue
